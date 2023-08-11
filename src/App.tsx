@@ -1,20 +1,12 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-
 import "./App.css";
-
-var banks = [];
-
 function App() {
   var [binBank, setBinBank] = useState("");
-  var [bankInfo, setBankInfo] = useState<any>({});
   var [accountNumber, setAccountNumber] = useState("");
   var [state, setState] = useState(0);
-  var [QRLink, setQRLink] = useState<string>("");
   var [amount, setAmount] = useState(0);
   var [message, setMessage] = useState("");
   var [accountName, setAccountName] = useState("");
@@ -40,7 +32,7 @@ function App() {
 
   if (state === 0) {
     setState(1);
-    console.log(5);
+    // console.log(5);
     axios.get("https://api.vietqr.io/v2/banks", {}).then((response) => {
       var Options = [];
       for (var i = 0; i < response.data["data"].length; i++) {
@@ -52,12 +44,12 @@ function App() {
       setOtp(Options);
     });
   }
-  const handleBin = (event: any, value: string, reason: any, details: any) => {
+  const handleBin = (_1: any, value: any, _2: any, _3: any) => {
     // e.target --> React Component --> khong co field 'value'
     // e.target cua cac cai khac --> HTML DOM --> co field 'value'
-    setBinBank(value["binCode"]);
+    setBinBank(value.binCode);
   };
-  const createQRcode = (e: any) => {
+  const createQRcode = () => {
     var URL = `https://img.vietqr.io/image/${binBank}-${accountNumber}-compact2.pgn?amount=${amount}&addInfo=${message}&accountName=${accountName}`;
     setURL(URL);
   };
